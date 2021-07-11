@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using DemoAPI.Models;
+using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,18 @@ namespace DemoAPI
             catch
             {
             }
+        }
+
+        public void JoinGroup(ChatGroupModel model)
+        {
+            Groups.Add(Context.ConnectionId, model.GroupName);
+            Clients.Group(model.GroupName).messageGroup(model.UserName, model.Message);
+        }
+
+        public void LeaveGroup(ChatGroupModel model)
+        {
+            Groups.Remove(Context.ConnectionId, model.GroupName);
+            Clients.Group(model.GroupName).messageGroup(model.UserName, model.Message);
         }
     }
 }

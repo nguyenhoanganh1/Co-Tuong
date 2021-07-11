@@ -13,10 +13,13 @@ namespace DemoAPI.Controllers
     {
         StudentService stService = new StudentService();
         ChessService chessService = new ChessService();
-        public ActionResult Index()
+
+
+        [Route("cotuong")]
+        public ActionResult Index(Guid id)
         {
-            
-           
+
+
             ViewBag.Title = "Home Page";
             /*ApplicationDbContext _dbContext;
             _dbContext = new ApplicationDbContext();
@@ -27,12 +30,13 @@ namespace DemoAPI.Controllers
             _dbContext.Student.Add(st);
             _dbContext.SaveChanges();
             */
-            insertRoom();
 
+            var room = chessService.GetRoomById(id);
 
-            return View();
+            return View(room);
         }
-        public void insertRoom() {
+        public void insertRoom()
+        {
             Room r = new Room();
             r.Id = Guid.NewGuid();
             r.Name = "test";

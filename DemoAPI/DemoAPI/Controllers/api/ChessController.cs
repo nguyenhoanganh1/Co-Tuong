@@ -9,10 +9,17 @@ using System.Web.Mvc;
 
 namespace DemoAPI.Controllers.api
 {
-    public class ChessController: Controller
+    public class ChessController : Controller
     {
         ChessService chessService = new ChessService();
-        
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
+
         [Route("api/chess/insertroom")]
         [HttpPost]
         public ActionResult insertroom(RoomModel rmodel)
@@ -25,7 +32,8 @@ namespace DemoAPI.Controllers.api
             Json(new
             {
                 message = "success",
-               // data = stList //_dbContext.Student.OrderBy(s=>s.Id).Skip(2).Take(3).ToList() //Where(s=>s.Id == Guid.Parse(id)).FirstOrDefault()
+                // data = stList //_dbContext.Student.OrderBy(s=>s.Id).Skip(2).Take(3).ToList() //Where(s=>s.Id == Guid.Parse(id)).FirstOrDefault()
+                room = r
             }, JsonRequestBehavior.AllowGet);
         }
         [Route("api/chess/getrooms")]
@@ -47,6 +55,7 @@ namespace DemoAPI.Controllers.api
             string chessJson = System.IO.File.ReadAllText(Server.MapPath("/Data/ChessJson.txt"));
             System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
             List<ChessNode> chessnode = js.Deserialize<List<ChessNode>>(chessJson);
+
             PointModel[,] matrix = new PointModel[10, 9];
             for (int i = 0; i <= 9; i++)
             {
@@ -70,10 +79,11 @@ namespace DemoAPI.Controllers.api
         {
             System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
             Requestlog.PostToClient(js.Serialize(movelist));
+
             return Json(new
             {
-                message = "success"
-
+                message = "success",
+                data = movelist
             }, JsonRequestBehavior.AllowGet);
         }
     }
