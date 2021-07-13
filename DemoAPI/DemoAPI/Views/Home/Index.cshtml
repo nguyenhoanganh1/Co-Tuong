@@ -340,7 +340,10 @@
                                     || this.id.indexOf("totdo3") >= 0
                                     || this.id.indexOf("totdo4") >= 0
                                     || this.id.indexOf("totdo5") >= 0) {
-                                    if (app.indexStopI - app.indexStartI == 1 && app.indexStopJ == app.indexStartJ) {
+                                    if (app.indexStopI - app.indexStartI == 1 && app.indexStopJ == app.indexStartJ && 
+                                        app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
+                                                app.chessMatrix[app.indexStopI][app.indexStopJ].top,
+                                                app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1) {
                                         var node = $("#" + this.id);
                                         node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
                                         node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
@@ -366,7 +369,10 @@
                                     || this.id.indexOf("totden3") >= 0
                                     || this.id.indexOf("totden4") >= 0
                                     || this.id.indexOf("totden5") >= 0) {
-                                    if (app.indexStopI - app.indexStartI == -1 && app.indexStopJ == app.indexStartJ) {
+                                        if (app.indexStopI - app.indexStartI == -1 && app.indexStopJ == app.indexStartJ
+                                        && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
+                                                            app.chessMatrix[app.indexStopI][app.indexStopJ].top,
+                                                            app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1) {
                                         var node = $("#" + this.id);
                                         node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
                                         node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
