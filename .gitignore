@@ -386,3 +386,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+DemoAPI/DemoAPI/Web.config
+DemoAPI/DemoAPI/Web.config
+DemoAPI/DemoAPI/Web.config
