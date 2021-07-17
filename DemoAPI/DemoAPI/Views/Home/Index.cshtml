@@ -308,6 +308,33 @@
                     }
                 }
             },
+            KTDuongDiquanma(stopI, startI, stopJ, startJ) {
+                if ((stopI - startI) == 2)//lên
+                {
+                    if (app.chessMatrix[startI + 1][startJ].id) {
+                        return 1;
+                    }
+                }
+                if ((stopI - startI) == -2)//xuống
+                {
+                    if (app.chessMatrix[startI - 1][startJ].id) {
+                        return 1;
+                    }
+                }
+                if ((stopJ - startJ) == 2)// phải
+                {
+                    if (app.chessMatrix[startI][startJ + 1].id) {
+                        return 1;
+                    }
+                }
+                if ((stopJ - startJ) == -2)// trái
+                {
+                    if (app.chessMatrix[startI][startJ - 1].id) {
+                        return 1;
+                    }
+                }
+                return 0;
+            },
             insertClassRoom() {
                 var payload = { Name: this.classRoom };
                 var res = axios.post('/api/ClassRoom/insertClassRoom', payload);
@@ -345,6 +372,7 @@
                 },
                 drag: function () {
                 },
+
                 stop: function (event, ui) {
                     //console.log('x=' + ui.position.top + '  y=' + ui.position.left);
                     app.indexStopI = -1;
@@ -532,7 +560,7 @@
                                 (Math.abs(app.indexStopI - app.indexStartI) == 1 && Math.abs(app.indexStopJ - app.indexStartJ) == 2)
                                && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
-                                    app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1)) {
+                                   app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1)) {
 
                                 var node = $("#" + this.id);
                                 node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
