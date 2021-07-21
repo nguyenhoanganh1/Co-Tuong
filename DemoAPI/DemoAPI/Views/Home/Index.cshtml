@@ -227,6 +227,7 @@
                         /*console.log("Point stop " + idPointStop);
                         console.log("top " + (top + 3));
                         console.log("left " + left);
+
                         var stop = $("#" + idPointStop);
                         stop.css({ 'display': 'none' });
                         this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
@@ -256,25 +257,41 @@
                         /* var stop = $("#" + idPointStop);
                          stop.css({ 'display': 'none' });
                          this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
-                        console.log("đo 1");
-                        return 1; //quan cung loai den
+
+
+                        var stop = $("#" + idPointStop);
+                        stop.css({ 'display': 'none' });
+
+                        this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
+/*
+                        var start = $("#" + idPointStart);
+                        start.css({ 'top': (top + 3) + 'px' });
+                        start.css({ 'left': left + 'px' });*/
+
+                        return 1; //quan cung loai do
                     }
                     else {
                         var stop = $("#" + idPointStop);
                         stop.css({ 'display': 'none' });
                         this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");
-                        /*console.log("Point stop " + idPointStop);
+
+                       /*console.log("Point stop " + idPointStop);
                         console.log("top " + (top + 3));
                         console.log("left " + left);
+
                         var start = $("#" + idPointStart);
                         start.css({ 'top': (top + 3) + 'px' });
                         start.css({ 'left': left + 'px' });
-                        this.getIndex(this.chessMatrix[this.indexStopI][this.indexStopJ].top,
-                                        this.chessMatrix[this.indexStopI][this.indexStopJ].left, "start");
-                        this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
+
+
+                          this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", start);*/
                         console.log("den -1" + id);
                         return -1; //quan khac loai
                     }
+
+                }
+                
+
                 }
             },
             setChessNodeToMatrix(chessNode) {
@@ -353,7 +370,9 @@
                         this.setChessNodeToMatrix(this.chessNode[i]);
                     }
                     this.initPrintMatrix();
-                    $('.listmove').append(response.data.chessnode);
+
+                    $('.listmove').append( response.data.chessnode);
+
                 })
                     .catch(error => {
                         console.log(error)
@@ -437,6 +456,7 @@
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
                                 flag = true;
+                       
                             }
                         }
                         else if (this.id.indexOf("totdo1") >= 0
@@ -620,10 +640,12 @@
                     app.getIndex(result[i].left, result[i].top, "stop");
                     app.$set(app.chessMatrix[app.indexStopI][app.indexStopJ], "id", result[i].id);
                     app.initPrintMatrix();
+
                     //node.css({ 'top': result[i].top + 'px, left: ' + result[i].left + 'px, display:' + result[i].visible});
                     break;
                 }
             };
+
             this.getchessNode();
         }
     })
