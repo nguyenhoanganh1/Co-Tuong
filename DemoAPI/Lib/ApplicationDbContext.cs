@@ -15,16 +15,14 @@ namespace Lib
         public DbSet<ClassRoom> ClassRoom { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<Room> Room { get; set; }
-        public DbSet<ChessPosition> Positions { get; set; }
-
         public ApplicationDbContext()
            : base("DefaultConnection")
         {
         }
 
-        /*public static ApplicationDbContext Create()
-         {
-             return new ApplicationDbContext();
-         }*/
+       /*public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }*/
     }
 }

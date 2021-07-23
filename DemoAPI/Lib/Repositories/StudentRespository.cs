@@ -12,12 +12,12 @@ namespace Lib.Repositories
     {
         List<Student> GetStudents();
     }
-    public class StudentRespository : RepositoryBase<Student>, IStudentRepository
+    public class StudentRespository: RepositoryBase<Student>, IStudentRepository
     {
         public StudentRespository(DbContextFactory factory)
             : base(factory)
         {
-
+            
         }
         public List<Student> GetStudents()
         {
