@@ -295,6 +295,16 @@
                          var start = $("#" + idPointStart);
                          start.css({ 'top': (top + 3) + 'px' });
                          start.css({ 'left': left + 'px' });
+
+
+
+                        /*console.log("Point stop " + idPointStop);
+                         console.log("top " + (top + 3));
+                         console.log("left " + left);
+                         var start = $("#" + idPointStart);
+                         start.css({ 'top': (top + 3) + 'px' });
+                         start.css({ 'left': left + 'px' });
+ 
                            this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", start);*/
                         console.log("den -1" + id);
                         return -1; //quan khac loai
@@ -305,7 +315,6 @@
                         /* var stop = $("#" + idPointStop);
                          stop.css({ 'display': 'none' });
                          this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");
-                        this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");
                         console.log("đo 1");
                         return 1; //quan cung loai den
 
@@ -316,15 +325,15 @@
 
                         this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");
 
-                        var start = $("#" + idPointStart);
-                        start.css({ 'top': (top + 3) + 'px' });
-                        start.css({ 'left': left + 'px' });* /
-
-                        this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");
-
                                                 var start = $("#" + idPointStart);
                                                 start.css({ 'top': (top + 3) + 'px' });
                                                 start.css({ 'left': left + 'px' });*/
+
+                        this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
+/*
+                        var start = $("#" + idPointStart);
+                        start.css({ 'top': (top + 3) + 'px' });
+                        start.css({ 'left': left + 'px' });*/
 
                         return 1; //quan cung loai do
                     }
@@ -336,9 +345,6 @@
                         /*console.log("Point stop " + idPointStop);
                          console.log("top " + (top + 3));
                          console.log("left " + left);
-                       /*console.log("Point stop " + idPointStop);
-                        console.log("top " + (top + 3));
-                        console.log("left " + left);
 
                          var start = $("#" + idPointStart);
                          start.css({ 'top': (top + 3) + 'px' });
@@ -347,29 +353,20 @@
 
                            this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", start);*/
 
-                        //this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", start);
+                          this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", start);*/
                         console.log("den -1" + id);
                         return -1; //quan khac loai
                     }
-
                 }
             },
-            getchessNode() {
-                var res = axios.post('/api/chess/getchessnode').then(response => {
-                    this.chessNode = response.data.chessnode;
-                    this.chessMatrix = response.data.matrix;
-
-                    this.initMatrix();
-                    for (var i = 0; i < this.chessNode.length; i++) {
-                        this.setChessNodeToMatrix(this.chessNode[i]);
-                    }
-                    this.initPrintMatrix();
-
-                })
-                    .catch(error => {
-                        console.log(error)
-                    })
-                    .finally();
+            setChessNodeToMatrix(chessNode) {
+                this.indexStopI = -1;
+                this.indexStopJ = -1;
+                this.getIndex(chessNode.left, chessNode.top, "stop");
+                if (this.indexStopI == -1 && this.indexStopI == -1) {
+                    return;
+                }
+                this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", chessNode.id);
             },
             getIndex(left, top, typeofMove) {
                 if (typeofMove == "stop") {
@@ -437,10 +434,9 @@
                     return;
                 }
                 this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", chessNode.id);
-
-            },
             getchessNode() {
-                var res = axios.post('/api/chess/getchessnode').then(response => {
+
+                axios.post('/api/chess/getchessnode').then(response => {
                     this.chessNode = response.data.chessnode;
                     this.chessMatrix = response.data.matrix;
                     this.initMatrix();
@@ -560,6 +556,11 @@
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
                                 flag = true;
+
+                            }
+
+
+
                             }
                         }
                         else if (this.id.indexOf("totden1") >= 0 || this.id.indexOf("totden2") >= 0 || this.id.indexOf("totden3") >= 0 || this.id.indexOf("totden4") >= 0 || this.id.indexOf("totden5") >= 0) {
@@ -567,14 +568,23 @@
                                 && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1) {
+
+                                var node = $("#" + this.id);
+                                node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
+                                node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
+
+                                app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
+                                flag = true;
+
+
                                 var node = $("#" + this.id);
                                 node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
                                 flag = true;
                             }
-                            else if ((app.indexStopI >= 0 && app.indexStopI <= 4 && app.indexStopJ >= 0 && app.indexStopJ <= 8
-                                && Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) == 1 &&
+                            else if ((app.indexStopI >= 0 && app.indexStopI <= 4 && app.indexStopJ >= 0 && app.indexStopJ <= 8 &&
+                                Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) == 1 &&
                                 app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1)) {
@@ -583,6 +593,8 @@
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
                                 flag = true;
+
+
                             }
 
                         }
@@ -613,7 +625,7 @@
                                 flag = true;
                             }
                         }
-
+ 
                         else if (this.id.indexOf("phaoden1") >= 0 || this.id.indexOf("phaoden2") >= 0) {
                             if ((((Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0) ||
                                 (Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 9))
@@ -625,11 +637,21 @@
                                 node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
+
                                 flag = true;
                             }
                         }
-
                         else if (this.id.indexOf("sido1") >= 0 || this.id.indexOf("sido2") >= 0 || this.id.indexOf("siden1") >= 0 || this.id.indexOf("siden2") >= 0) {
+                            if (((Math.abs(app.indexStopI - app.indexStartI) == -11 && Math.abs(app.indexStopJ - app.indexStartJ) == 1)
+
+                        else if (this.id.indexOf("phaodo1") >= 0 || this.id.indexOf("phaodo2") >= 0 || this.id.indexOf("phaoden1") >= 0 || this.id.indexOf("phaoden2") >= 0) {
+
+                            }
+                        }
+                        else if (this.id.indexOf("sido1") >= 0
+                            || this.id.indexOf("sido2") >= 0
+                            || this.id.indexOf("siden1") >= 0
+                            || this.id.indexOf("siden2") >= 0) {
                             if (((Math.abs(app.indexStopI - app.indexStartI) == -11 && Math.abs(app.indexStopJ - app.indexStartJ) == 1)
                                 && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
@@ -642,7 +664,7 @@
                                 flag = true;
                             }
                         }
-                        else if (this.id.indexOf("phaodo1") >= 0 || this.id.indexOf("phaodo2") >= 0) {
+                        else if (this.id.indexOf("phaodo1") >= 0 || this.id.indexOf("phaodo2") >= 0 ) {
 
                             if ((((Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0) ||
                                 (Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 9))
@@ -664,11 +686,12 @@
                                 && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
 
-                                    app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1)) {
+                                    app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1) ) {
                                 var node = $("#" + this.id);
                                 node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
+ 
                                 flag = true;
                             }
                         }
@@ -702,8 +725,7 @@
                         if (flag == true) {
                             if (flag == true) {
                                 var res = axios.post('/api/chess/movenode', movelist).then(response => {
-                                    listmove = response.data.data;
-                                    //console.log(response.data.data);
+                                    console.log(response.data.data);
                                     //listmove = response.data.data;
                                 })
                                     .catch(error => {
@@ -718,13 +740,13 @@
                             app.revert(originalleft, originaltop, this.id);
                         }
                     }
+
                 }
             })
         },
         mounted: function () {
             var chat = $.connection.requestlog;
             $.connection.hub.start().done(function () {
-
             });
             chat.client.postToClient = function (data) {
                 var result = [];
@@ -734,7 +756,6 @@
                 for (var i = 0; i < result.length; i++) {
 
                     //app.listmove.push({ "top": result[i].top, "left": result[i].left, "id": result[i].id, "display": result[i].visible });
-
                     app.move.push({ "top": result[i].top, "left": result[i].left, "id": result[i].id, "display": result[i].visible });
 
                     var node = $("#" + result[i].id);
@@ -743,6 +764,7 @@
                     node.css({ 'top': result[i].top + 'px' });
                     node.css({ 'left': result[i].left + 'px' });
                     node.css({ 'display': result[i].visible });
+
                     app.getIndex(startLeft, startTop, "start");
                     app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
                     app.getIndex(result[i].left, result[i].top, "stop");
@@ -752,7 +774,6 @@
                     //node.css({ 'top': result[i].top + 'px, left: ' + result[i].left + 'px, display:' + result[i].visible});
                     break;
                 }
-
             };
 
             this.getchessNode();
@@ -809,57 +830,4 @@
              return bestMove;
          }*/
     })
-
-    /* var BestMove = function (this) {
-//generate all the moves for a given position
-var newGameMoves = game.ugly_moves();
-return newGameMoves[Math.floor(Math.random() * newGameMoves.length)];
-};
-
-var calculateBestMove = function (game) {
-
-var newGameMoves = game.ugly_moves();
-var bestMove = null;
-//use any negative large number
-var bestValue = -9999;
-
-for (var i = 0; i < newGameMoves.length; i++) {
-   var newGameMove = newGameMoves[i];
-   game.ugly_move(newGameMove);
-
-   //take the negative as AI plays as black
-   var boardValue = -evaluateBoard(game.board())
-   game.undo();
-   if (boardValue > bestValue) {
-       bestValue = boardValue;
-       bestMove = newGameMove
-   }
-
-
-}
-return bestMove;
-}
-var minimax = function (depth, game, isMaximisingPlayer) {
-if (depth === 0) {
-   return -evaluateBoard(game.board());
-}
-var newGameMoves = game.ugly_moves();
-if (isMaximisingPlayer) {
-   var bestMove = -9999;
-   for (var i = 0; i < newGameMoves.length; i++) {
-       game.ugly_move(newGameMoves[i]);
-       bestMove = Math.max(bestMove, minimax(depth - 1, game, !isMaximisingPlayer));
-       game.undo();
-   }
-   return bestMove;
-} else {
-   var bestMove = 9999;
-   for (var i = 0; i < newGameMoves.length; i++) {
-       game.ugly_move(newGameMoves[i]);
-       bestMove = Math.min(bestMove, minimax(depth - 1, game, !isMaximisingPlayer));
-       game.undo();
-   }
-   return bestMove;
-}*/
-
 </script>
