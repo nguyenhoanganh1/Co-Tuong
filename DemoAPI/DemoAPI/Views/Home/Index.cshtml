@@ -255,6 +255,22 @@
                     }
                 });
 
+
+            redo() {
+                /*var id = app.chessMatrix[app.indexStartI][app.indexStartJ].id;
+                var top = app.chessMatrix[app.indexStartI][app.indexStartJ].top;
+                var left = app.chessMatrix[app.indexStartI][app.indexStartJ].left;
+                if (id.indexOf("den") >= 0) {
+                    var node = $("#" + id);
+                    node.css({ 'top': 727 })
+                    node.css({ 'left': 328 })
+                    this.$set(this.chessMatrix[this.indexStartI][this.indexStartJ], "id", "");
+                }*/
+                for (var i in this.listmove) {
+                    console.log(this.listmove[i].id);
+                    console.log(this.listmove[i].top);
+                    console.log(this.listmove[i].left);
+                }
             },
             initPoint(left, top, chessNodeId) {
                 let temp = {};
@@ -276,7 +292,6 @@
                 var idPointStart = this.chessMatrix[this.indexStartI][this.indexStartJ].id;
                 console.log("Point Start " + idPointStart);
                 var idPointStop = this.chessMatrix[this.indexStopI][this.indexStopJ].id;
-
                 if (idPointStop == "") {
                     return 0; /// khong co quan co nao tai vi tri nay
                 }
@@ -289,12 +304,12 @@
 
                         var stop = $("#" + idPointStop);
                         stop.css({ 'display': 'none' });
-
                         this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
                         /*
                                                 var start = $("#" + idPointStart);
                                                 start.css({ 'top': (top + 3) + 'px' });
                                                 start.css({ 'left': left + 'px' });*/
+
 
                         return 1; //quan cung loai do
                     }
@@ -312,11 +327,18 @@
                          start.css({ 'left': left + 'px' });
 
 
+
+                        /*console.log("Point stop " + idPointStop);
+                         console.log("top " + (top + 3));
+                         console.log("left " + left);
+                         var start = $("#" + idPointStart);
+                         start.css({ 'top': (top + 3) + 'px' });
+                         start.css({ 'left': left + 'px' });
+ 
                            this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", start);*/
                         console.log("den -1" + id);
                         return -1; //quan khac loai
                     }
-
                 }
                 if (id.indexOf("den") >= 0) {
                     if (idPointStop.indexOf("do") >= 0) {
@@ -325,14 +347,26 @@
                          this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
                         console.log("đo 1");
                         return 1; //quan cung loai den
+
+
+
+                        var stop = $("#" + idPointStop);
+                        stop.css({ 'display': 'none' });
+
+                        this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
+/*
+                        var start = $("#" + idPointStart);
+                        start.css({ 'top': (top + 3) + 'px' });
+                        start.css({ 'left': left + 'px' });*/
+
+                        return 1; //quan cung loai do
                     }
                     else {
-
                         var stop = $("#" + idPointStop);
                         stop.css({ 'display': 'none' });
                         this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");
 
-                        /*console.log("Point stop " + idPointStop);
+                       /*console.log("Point stop " + idPointStop);
                         console.log("top " + (top + 3));
                         console.log("left " + left);
 
@@ -341,12 +375,13 @@
                         start.css({ 'left': left + 'px' });
 
 
-                        this.getIndex(this.chessMatrix[this.indexStopI][this.indexStopJ].top,
-                                        this.chessMatrix[this.indexStopI][this.indexStopJ].left, "start");
-                        this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", "");*/
+                          this.$set(this.chessMatrix[this.indexStopI][this.indexStopJ], "id", start);*/
                         console.log("den -1" + id);
                         return -1; //quan khac loai
                     }
+
+                }
+                
 
                 }
             },
@@ -429,6 +464,8 @@
                     }
                     this.initPrintMatrix();
 
+                    $('.listmove').append( response.data.chessnode);
+
                 })
                     .catch(error => {
                         console.log(error)
@@ -452,7 +489,6 @@
                 },
                 drag: function () {
                 },
-
                 stop: function (event, ui) {
                     //console.log('x=' + ui.position.top + '  y=' + ui.position.left);
                     app.indexStopI = -1;
@@ -483,7 +519,6 @@
                                 app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1) {
-
                                 var node = $("#" + this.id);
                                 node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
@@ -508,6 +543,7 @@
                             if (((Math.abs(app.indexStopI - app.indexStartI) == 2 && Math.abs(app.indexStopJ - app.indexStartJ) == 2)
                                 && (app.indexStopJ >= 0 && app.indexStopJ <= 8 && app.indexStopI >= 5 && app.indexStopI <= 9)
 
+
                                 && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1)) {
@@ -519,6 +555,10 @@
                             }
                         }
 
+
+                       
+                            }
+                        }
                         else if (this.id.indexOf("totdo1") >= 0
                             || this.id.indexOf("totdo2") >= 0
                             || this.id.indexOf("totdo3") >= 0
@@ -548,6 +588,8 @@
                             }
 
 
+
+                            }
                         }
                         else if (this.id.indexOf("totden1") >= 0
                             || this.id.indexOf("totden2") >= 0
@@ -566,6 +608,12 @@
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
                                 flag = true;
 
+
+                                var node = $("#" + this.id);
+                                node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
+                                node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
+                                app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
+                                flag = true;
                             }
                             else if ((app.indexStopI >= 0 && app.indexStopI <= 4 && app.indexStopJ >= 0 && app.indexStopJ <= 8 &&
                                 Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) == 1 &&
@@ -577,6 +625,7 @@
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
                                 flag = true;
+
 
                             }
 
@@ -613,8 +662,14 @@
                             }
                         }
                         else if (this.id.indexOf("phaodo1") >= 0 || this.id.indexOf("phaodo2") >= 0 || this.id.indexOf("phaoden1") >= 0 || this.id.indexOf("phaoden2") >= 0) {
-                            if ((((Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0) ||
-                                (Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 9))
+
+                            }
+                        }
+                        else if (this.id.indexOf("sido1") >= 0
+                            || this.id.indexOf("sido2") >= 0
+                            || this.id.indexOf("siden1") >= 0
+                            || this.id.indexOf("siden2") >= 0) {
+                            if (((Math.abs(app.indexStopI - app.indexStartI) == -11 && Math.abs(app.indexStopJ - app.indexStartJ) == 1)
                                 && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].top,
                                     app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1)) {
@@ -622,6 +677,37 @@
                                 node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
                                 node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
                                 app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
+                                flag = true;
+                            }
+                        }
+                        else if (this.id.indexOf("phaodo1") >= 0 || this.id.indexOf("phaodo2") >= 0 ) {
+
+                            if ((((Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0) ||
+                                (Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 9))
+                                && (app.indexStopJ >= 0 && app.indexStopJ <= 9 && app.indexStopI >= 0 && app.indexStopI <= 9)
+                                && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
+                                    app.chessMatrix[app.indexStopI][app.indexStopJ].top,
+                                    app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1)) {
+                                var node = $("#" + this.id);
+                                node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
+                                node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
+                                app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
+                                flag = true;
+                            }
+                        }
+                        else if (this.id.indexOf("phaoden1") >= 0 || this.id.indexOf("phaoden2") >= 0) {
+                            if ((((Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0) ||
+                                (Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 9))
+                                && (app.indexStopJ >= 0 && app.indexStopJ <= 9 && app.indexStopI >= 0 && app.indexStopI <= 9)
+                                && app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left,
+                                    app.chessMatrix[app.indexStopI][app.indexStopJ].top,
+
+                                    app.chessMatrix[app.indexStopI][app.indexStopJ].id) != 1) ) {
+                                var node = $("#" + this.id);
+                                node.css({ 'top': app.chessMatrix[app.indexStopI][app.indexStopJ].top + 'px' });
+                                node.css({ 'left': app.chessMatrix[app.indexStopI][app.indexStopJ].left + 'px' });
+                                app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
+ 
                                 flag = true;
                             }
                         }
@@ -691,7 +777,6 @@
                     var node = $("#" + result[i].id);
                     var startTop = parseInt(node.css('top'), 10);
                     var startLeft = parseInt(node.css('left'), 10);
-
                     node.css({ 'top': result[i].top + 'px' });
                     node.css({ 'left': result[i].left + 'px' });
                     node.css({ 'display': result[i].visible });
@@ -699,7 +784,6 @@
 
                     app.getIndex(startLeft, startTop, "start");
                     app.$set(app.chessMatrix[app.indexStartI][app.indexStartJ], "id", "");
-
                     app.getIndex(result[i].left, result[i].top, "stop");
                     app.$set(app.chessMatrix[app.indexStopI][app.indexStopJ], "id", result[i].id);
                     app.initPrintMatrix();
@@ -712,5 +796,56 @@
             };
             this.getchessNode();
         }
+       /* var BestMove = function (this) {
+        //generate all the moves for a given position
+        var newGameMoves = game.ugly_moves();
+        return newGameMoves[Math.floor(Math.random() * newGameMoves.length)];
+        };
+
+    var calculateBestMove = function (game) {
+
+        var newGameMoves = game.ugly_moves();
+        var bestMove = null;
+        //use any negative large number
+        var bestValue = -9999;
+
+        for (var i = 0; i < newGameMoves.length; i++) {
+            var newGameMove = newGameMoves[i];
+            game.ugly_move(newGameMove);
+
+            //take the negative as AI plays as black
+            var boardValue = -evaluateBoard(game.board())
+            game.undo();
+            if (boardValue > bestValue) {
+                bestValue = boardValue;
+                bestMove = newGameMove
+            }
+
+
+        }
+        return bestMove;
+    }
+    var minimax = function (depth, game, isMaximisingPlayer) {
+        if (depth === 0) {
+            return -evaluateBoard(game.board());
+        }
+        var newGameMoves = game.ugly_moves();
+        if (isMaximisingPlayer) {
+            var bestMove = -9999;
+            for (var i = 0; i < newGameMoves.length; i++) {
+                game.ugly_move(newGameMoves[i]);
+                bestMove = Math.max(bestMove, minimax(depth - 1, game, !isMaximisingPlayer));
+                game.undo();
+            }
+            return bestMove;
+        } else {
+            var bestMove = 9999;
+            for (var i = 0; i < newGameMoves.length; i++) {
+                game.ugly_move(newGameMoves[i]);
+                bestMove = Math.min(bestMove, minimax(depth - 1, game, !isMaximisingPlayer));
+                game.undo();
+            }
+            return bestMove;
+        }*/
     })
 </script>
