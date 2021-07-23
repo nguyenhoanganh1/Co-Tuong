@@ -13,8 +13,6 @@ namespace DemoAPI.Controllers.api
     {
         ChessService chessService = new ChessService();
 
-        PositionService positionService = new PositionService();
-
         public ActionResult Index()
         {
             return View();
@@ -72,7 +70,7 @@ namespace DemoAPI.Controllers.api
             {
                 message = "success",
                 chessnode = chessnode,
-                matrix = matrix,
+                matrix = matrix
             }, JsonRequestBehavior.AllowGet);
         }
         [Route("api/chess/movenode")]
@@ -81,23 +79,11 @@ namespace DemoAPI.Controllers.api
         {
             System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
             Requestlog.PostToClient(js.Serialize(movelist));
+
             return Json(new
             {
                 message = "success",
                 data = movelist
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        [Route("api/chess/save")]
-        [HttpPost]
-        public ActionResult SaveChess(ChessPosition positions)
-        {
-            positionService.SavePosition(positions);
-
-            return Json(new
-            {
-                message = "success",
-                data = positions
             }, JsonRequestBehavior.AllowGet);
         }
     }
