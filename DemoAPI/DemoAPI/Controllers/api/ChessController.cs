@@ -13,6 +13,8 @@ namespace DemoAPI.Controllers.api
     {
         ChessService chessService = new ChessService();
 
+        ChessPositionService chessPosition = new ChessPositionService();
+
         public ActionResult Index()
         {
             return View();
@@ -84,6 +86,18 @@ namespace DemoAPI.Controllers.api
             {
                 message = "success",
                 data = movelist
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [Route("api/chess/save")]
+        [HttpPost]
+        public ActionResult SaveChess(ChessPosition chess)
+        {
+            chessPosition.SavePosition(chess);
+
+            return Json(new
+            {
+                message = "success",
+                data = chess
             }, JsonRequestBehavior.AllowGet);
         }
     }
