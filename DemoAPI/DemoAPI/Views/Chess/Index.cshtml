@@ -1,28 +1,45 @@
 ﻿<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
+.image_user{
+    height: 200px;
+    width: 100%;
+}
+
+.img:hover .text{
+    color: red;
+    font-weight: bolder;
+}
+.mt-1 {
+    margin-top: 20px;
+}
+</style>
+
+<h2>Sảnh chờ</h2>
 <div id="app">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
-                <label>Room Name: </label>
-                <input type="text" id="room" name="room" v-model="room" />
-                <button v-on:click="createRoom">Tạo phòng</button>
-                <button v-on:click="getAllRoom">Xem danh sách phòng chơi</button>
+                <label>Nhập tên Phòng: </label>
+                <input placeholder="tạo phòng?" type="text" id="room" name="room" v-model="room" />
+                <button class="btn btn-success" v-on:click="createRoom"><i class="glyphicon glyphicon-plus"></i> Tạo phòng</button>
+                <button class="btn btn-danger" v-on:click="getAllRoom"><i class="glyphicon glyphicon-th-list"></i>  Xem danh sách phòng chơi</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-1">
             <div v-for="item in rooms" v-if="item !== null" :id="item.id" class="chessnode" v-bind:style="{ display: item.visible, top: item.top + 'px', left: item.left + 'px'}">
                 <div class="col-md-3" :id="item.Id">
-                    <a :href="'/cotuong?id=' + item.Id">
-                        <img src="~/Content/images/table-0.png" title="Room" height="100px" width="100px" />
+                    <a class="img" :href="'/cotuong?id=' + item.Id">
+                        <img class="image_user" src="~/Content/images/table-2.png" title="Play Chess" />
+                        <strong><p class="text-center text">{{item.Name}}</p></strong>
+
                     </a>
-                    <p>{{item.Name}}</p>
                 </div>
             </div>
         </div>
