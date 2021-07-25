@@ -15,12 +15,11 @@ namespace DemoAPI.Controllers.api
 
         ChessPositionService chessPosition = new ChessPositionService();
 
+        ChatService chatService = new ChatService();
         public ActionResult Index()
         {
             return View();
         }
-
-
 
         [Route("api/chess/insertroom")]
         [HttpPost]
@@ -100,5 +99,19 @@ namespace DemoAPI.Controllers.api
                 data = chess
             }, JsonRequestBehavior.AllowGet);
         }
+
+        [Route("api/chess/savemessage")]
+        [HttpPost]
+        public ActionResult SaveMessage(Chat chat)
+        {
+            chat.DateTime = DateTime.Now;
+            chatService.SaveMessage(chat);
+            return Json(new
+            {
+                message = "success",
+                data = chat
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
