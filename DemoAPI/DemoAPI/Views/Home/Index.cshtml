@@ -33,7 +33,7 @@
         border: 1px solid black;
         width: 400px;
         height: 400px;
-        margin: 100px 0 10px 0;
+        margin: 50px 0 10px 0;
         overflow: auto;
         border-radius: 10px;
     }
@@ -62,7 +62,9 @@
     .mt-1 {
         margin-top: 10px;
     }
-
+    .mt-2{
+        margin-top: 40px;
+    }
     .ree {
         transform: rotate(180deg);
     }
@@ -84,10 +86,10 @@
             </div>
 
             <div class="col-md-4">
-                <div class="title">
+                <div class="mt-2">
                     <input hidden value="@Model.Id" id="roomId" />
-                    <h3 id="roomname">Phòng: @Model.Name</h3>
-                    <span><i class="glyphicon glyphicon-user"> User: </i> <strong><input id="username" value="@username" readonly /></strong></span>
+                    <h3 id="roomname"><i class="glyphicon glyphicon-home"></i> @Model.Name</h3>
+                    <span><i class="glyphicon glyphicon-user"></i><strong><input id="username" value="@username" readonly /></strong></span>
                     <div class="btn-group mt-1">
                         <button class="btn btn-primary" v-on:click="redo" name="redo"><i class="glyphicon glyphicon-share-alt ree"></i> Redo</button>
                         <button class="btn btn-info" v-on:click="undo" name="undo"><i class="glyphicon glyphicon-share-alt"></i> Undo</button>
