@@ -13,12 +13,13 @@ namespace DemoAPI.Controllers.api
     {
         ChessService chessService = new ChessService();
 
+        ChessPositionService chessPosition = new ChessPositionService();
+
+        ChatService chatService = new ChatService();
         public ActionResult Index()
         {
             return View();
         }
-
-
 
         [Route("api/chess/insertroom")]
         [HttpPost]
@@ -86,5 +87,31 @@ namespace DemoAPI.Controllers.api
                 data = movelist
             }, JsonRequestBehavior.AllowGet);
         }
+        [Route("api/chess/save")]
+        [HttpPost]
+        public ActionResult SaveChess(ChessPosition chess)
+        {
+            chessPosition.SavePosition(chess);
+
+            return Json(new
+            {
+                message = "success",
+                data = chess
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Route("api/chess/savemessage")]
+        [HttpPost]
+        public ActionResult SaveMessage(Chat chat)
+        {
+            chat.DateTime = DateTime.Now;
+            chatService.SaveMessage(chat);
+            return Json(new
+            {
+                message = "success",
+                data = chat
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

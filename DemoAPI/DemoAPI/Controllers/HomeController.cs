@@ -13,12 +13,12 @@ namespace DemoAPI.Controllers
     {
         StudentService stService = new StudentService();
         ChessService chessService = new ChessService();
+        ChatService chatService = new ChatService();
 
-
+        public int count = 0;
         [Route("cotuong")]
         public ActionResult Index(Guid id)
         {
-
 
             ViewBag.Title = "Home Page";
             /*ApplicationDbContext _dbContext;
@@ -32,6 +32,8 @@ namespace DemoAPI.Controllers
             */
 
             var room = chessService.GetRoomById(id);
+            ViewBag.count = count++;
+            ViewBag.chat = chatService.GetAllChatByGroup(id);
 
             return View(room);
         }
